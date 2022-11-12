@@ -1,5 +1,6 @@
 <template>
 	<li class="row rounded p-2 align-items-center mb-2" style="background-color: #333333">
+		{{tarea.idTareas}}
 		<div class="col-4 text-center text-light text-break">
 			{{tarea.nombreTarea}}
 		</div>

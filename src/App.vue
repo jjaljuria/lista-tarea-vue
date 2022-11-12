@@ -14,69 +14,38 @@
 <script>
 import panelIngreso from "./components/panelIngreso.vue";
 import listaTarea from "./components/listaTarea.vue";
-import $ from 'jquery';
-import axios from 'axios';
+
+function randomId(){
+  const now = new Date();
+  const randomInt = Math.floor(Math.random() * (1000000 - 1) + 1);
+  return String(now.getMilliseconds()) + '-' + String(randomInt)
+}
+
+
 export default {
   data: function() {
     return {
-      contador: 1,
       lista: []
     };
   },
 
   created: function() {
-    let self = this;
-    axios
-      .get("../backend/api/obtenerTareas.php")
-      .then(function(respuesta) {
-        self.lista = respuesta.data;
-        self.contador = respuesta.data.length + 1;
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    this.lista = JSON.parse(localStorage.getItem('lista-tarea-vue-data'))
   },
 
   methods: {
     guardarEnLista: function(datos) {
-
-      const ajax = $.ajax({
-        url: '../backend/api/nuevaTarea.php',
-        type: 'POST',
-        data: datos,
-      });
-
-      ajax.done(function(respuesta){
-        console.log(respuesta);
-      })
-
-      /*console.log(datos);
-      axios.post("../backend/api/nuevaTarea.php", {
-        datos: datos
-      }).then(function(respuesta){
-          console.log(respuesta);
-        }).catch(function(error) {
-        console.log(error);
-      });*/
       
-      datos.idTareas = this.contador;
+      datos.idTareas = randomId();
       this.lista.push(datos);
-      this.contador = this.contador + 1;
-      console.log(this.contador);
+      localStorage.setItem('lista-tarea-vue-data', JSON.stringify(this.lista))
     },
     eliminarEnLista: function(id) {
       this.lista = this.lista.filter(elemento => {
         return elemento.idTareas != id;
       });
 
-      const ajax = $.ajax({
-        url: '../backend/api/eliminarTarea.php?idTarea=' + id,
-        type: 'PUT'
-      });
-
-      ajax.done(function(respuesta){
-        console.log(respuesta);
-      })
+      localStorage.setItem('lista-tarea-vue-data', JSON.stringify(this.lista))
     }
   },
   name: "App",

@@ -10,7 +10,7 @@
 			</div>
 		</div>
 	</li>
-	<item v-for="(i, indice) in lista" :key="indice" :tarea="i"  @itemEliminado="itemEliminado"/>
+	<item v-for="i in lista" :key="i.idTareas" :tarea="i"  @itemEliminado="itemEliminado"/>
   </ul>
 </template>
 
