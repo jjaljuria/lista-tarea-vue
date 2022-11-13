@@ -1,6 +1,6 @@
 <template>
-  <ul>
-	<li>
+  <ul class="list-group list-group-flush mx-2">
+	<li class="list-group-item">
 		<div class="row text-center font-weight-bold">
 			<div class="col-4">
 				Nombre
@@ -31,5 +31,5 @@ export default {
 </script>
 
 <style>
-
+	
 </style>

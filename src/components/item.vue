@@ -1,6 +1,5 @@
 <template>
-	<li class="row rounded p-2 align-items-center mb-2" style="background-color: #333333">
-		{{tarea.idTareas}}
+	<li class="row rounded p-2 mb-2 list-group-item d-flex background-color" >
 		<div class="col-4 text-center text-light text-break">
 			{{tarea.nombreTarea}}
 		</div>
@@ -25,6 +24,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+	.background-color{
+		background-color: #333333
+	}
 </style>
