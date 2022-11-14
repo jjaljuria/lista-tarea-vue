@@ -1,3 +1,6 @@
 module.exports = {
-  publicPath: '.'
+  publicPath: '.',
+  devServer: {
+    public: 'https://lista-tarea-vue.up.railway.app/'
+  }
 }
