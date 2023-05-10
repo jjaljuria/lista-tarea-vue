@@ -4,6 +4,7 @@
       <div class="col-12 col-md-6 border-right">
         <panel-ingreso @guardado="guardarEnLista" />
       </div>
+      <h1>Alonsp</h1>
       <div class="col-12 col-md-6">
         <lista-tarea :lista="lista" class="mx-md-3" v-on:itemEliminado="eliminarEnLista"></lista-tarea>
       </div>
