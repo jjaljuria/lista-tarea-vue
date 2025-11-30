@@ -1,0 +1,52 @@
+name: CI
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [20]
+
+        steps:
+            - name: "Verifica el Codigo"
+              uses: actions/checkout@v4
+
+            - name: "Setup Node.js ${{ matrix.node-version }}"
+              uses: actions/setup-node@v4
+              with:
+                    node-version: ${{ matrix.node-version }}
+                    cache: 'npm'
+
+            - name: "Instalar dependencias del proyecto"
+              run: npm ci
+
+            - name: "Contruir la aplicación"
+              run: npm run build
+            
+            - name: "Configurar Github Page"
+              uses: actions/configure-pages@v5
+            
+            - name: "Subir el dist como artefacto"
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: './dist'
+    deploy:
+        needs: build
+        permissions:
+            pages: write
+            id-token: write
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Desplegar a GitHub Page"
+              id: deployment
+              uses: actions/deploy-pages@v4
